@@ -25,9 +25,9 @@ configuration {
 	border-color:					@background;
     border-radius:                  8;
 	width:							300px;
-    location:                       northeast;
+    location:                       southeast;
     x-offset:                       -8;
-    y-offset:                       40;
+    y-offset:                       -40;
 }
 
 #listview {
