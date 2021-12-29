@@ -16,7 +16,7 @@ picom --experimental-backends --config "$SCRIPTPATH"/picom.conf > /dev/null &
 leftwm command "LoadTheme $SCRIPTPATH/theme.toml"
 
 # Set background
-feh --bg-fill "$SCRIPTPATH"/background2.jpg
+feh --bg-fill "$SCRIPTPATH"/wallpapers/background2.jpg
 
 dunst &
 
@@ -28,3 +28,4 @@ do
   monitor=$monitor width=$(( width - 16 )) polybar -c "$SCRIPTPATH"/polybar.config $barname &
   index=$((index+1))
 done
+

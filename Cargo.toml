@@ -1,0 +1,21 @@
+[package]
+name = "leftwm-theme-dark-nord"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "statusbar"
+path = "src/statusbar.rs"
+
+[dependencies]
+battery = "0.7"
+# yansi = "0.5"
+toml = "0.5"
+serde = "1.0"
+serde_derive = "1.0"
+thiserror = "1.0"
+clap = { version = "3.0.0-rc.9", features = ["derive"]}
+clap_generate = { version = "3.0.0-rc.9"}
+clap_generate_fig = { version = "3.0.0-rc.9"}

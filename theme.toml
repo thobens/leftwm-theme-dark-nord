@@ -1,6 +1,6 @@
 border_width = 1
 margin = 4
 workspace_margin = 4
-default_border_color = "#2e3440"
-floating_border_color = "#2e3440"
-focused_border_color = "#a3be8c"
+default_border_color = "#68809a" # dim blue
+floating_border_color = "#68809a" # dim blue
+focused_border_color = "#809575" # dim green
