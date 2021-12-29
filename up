@@ -2,6 +2,8 @@
 export SCRIPTPATH
 SCRIPTPATH="$( cd "$(dirname "$0")" || exit; pwd -P )"
 
+export STARSHIP_CONFIG="$SCRIPTPATH/.config/starship.toml"
+
 # Down the last running theme
 if [ -f "/tmp/leftwm-theme-down" ]; then
     /tmp/leftwm-theme-down

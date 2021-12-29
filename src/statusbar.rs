@@ -16,6 +16,8 @@ use clap_generate::{
 #[derive(Parser, Debug)]
 #[clap(name = "pb-status", author, version, about)]
 struct StatusBarApp {
+    #[clap(short = 'c', long = "config", value_hint = ValueHint::FilePath)]
+    cfg_path: PathBuf,
     #[clap(subcommand)]
     cmd: StatusBarCmd,
 }
@@ -74,8 +76,8 @@ impl Completion {
     }
 }
 fn main() -> Result<()> {
-    let pb =
-        PathBuf::from("/home/andreasd/.config/leftwm/themes/current/.config/pb-status/config.toml");
+    let main = StatusBarApp::parse();
+    let pb = PathBuf::from(main.cfg_path);
     let cfg = if !Config::exists(pb.clone()) {
         let cfg = Config::default();
         cfg.write_config(pb.clone())?;
@@ -83,8 +85,6 @@ fn main() -> Result<()> {
     } else {
         Config::try_from(pb.clone())?
     };
-
-    let main = StatusBarApp::parse();
     let mut app = StatusBarCmd::into_app();
     let result = match main.cmd {
         StatusBarCmd::Completion(c) => c.run(&mut app),

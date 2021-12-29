@@ -1,0 +1,6 @@
+[directory]
+style = "bold blue"
+
+[kubernetes]
+format = 'on [ﴱ $context \($namespace\)](dimmed green) '
+disabled = false

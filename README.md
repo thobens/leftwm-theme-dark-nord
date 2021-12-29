@@ -25,10 +25,14 @@ launcher    : Rofi
 - [polybar](https://github.com/polybar/polybar)
 - [saucecodepro nerd font](https://github.com/ryanoasis/nerd-fonts)
 - [rofi](https://github.com/davatorium/rofi)
+- [starship](https://github.com/starship/starship)
+- [alacritty](https://github.com/alacritty/alacritty)
 
 ## Installation
 
 1. Install all required dependencies
+
+    yay -S leftwm picom polybar nerd-fonts-complete rofi alacritty starship
 
 2. Clone the repository
 
