@@ -6,6 +6,11 @@ feh --bg-scale "$SCRIPTPATH"/down.jpg
 
 leftwm command "UnloadTheme"
 
+eww close-all -c $SCRIPTPATH/.config/eww/dark-nord 
+eww kill -c $SCRIPTPATH/.config/eww/dark-nord
+
+pkill eww
+
 pkill picom
-pkill polybar
+# pkill polybar
 pkill dunst

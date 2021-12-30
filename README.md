@@ -6,8 +6,8 @@
 DE          : Arch
 WM          : Leftwm
 terminal    : Alacritty/st
-colorscheme : Dracula
-bar         : Polybar
+colorscheme : Nord
+bar         : eww
 launcher    : Rofi
 ```
 

@@ -1,0 +1,158 @@
+(defwidget bar []
+  (centerbox :class "bar" :orientation "h"
+    (workspaces)
+    (music)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "🔊"
+      :value volume
+    :onchange "amixer -D pulse sset Master {}%")
+    (metric :label ""
+      :value {EWW_RAM.used_mem_perc}
+    :onchange "")
+    (metric :label "💾"
+      :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+    :onchange "")
+    (time :onclick "eww open sys -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord")))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+    :orientation "h"
+    :space-evenly true
+    :halign "start"
+    :spacing 0
+    (tag :ws 0 :tagnum 0 :value {ws_state_main} :reveal_var revealTag0)
+    (tag :ws 0 :tagnum 1 :value {ws_state_main} :reveal_var revealTag1)
+    (tag :ws 0 :tagnum 2 :value {ws_state_main} :reveal_var revealTag2)
+    (tag :ws 0 :tagnum 3 :value {ws_state_main} :reveal_var revealTag3)
+    (tag :ws 0 :tagnum 4 :value {ws_state_main} :reveal_var revealTag4)
+    (tag :ws 0 :tagnum 5 :value {ws_state_main} :reveal_var revealTag5)
+    (tag :ws 0 :tagnum 6 :value {ws_state_main} :reveal_var revealTag6)
+    (tag :ws 0 :tagnum 7 :value {ws_state_main} :reveal_var revealTag7)))
+
+(defwidget tag [ ws tagnum value reveal_var]
+  (tag_it :ws ws :onclick "scripts/change_to_tag ${ws} ${tagnum}" :tag_state {value.workspaces[ws].tags[tagnum]
+  } :var reveal_var))
+
+(defwidget tag_it [ ws tag_state var onclick]
+  (box :class "tag"
+    :orientation "h"
+    :space-evenly true
+    :halign "start"
+    ; (revealer-on-hover :class "hl-on-hover"
+    ;   :var var
+    ;   :varname "revealTag${tag_state.index}"
+    ;   :transition "slideleft"
+    ;   :class "volume"
+      
+    ;   (hovered-sign :var var
+    ;     (label :text "")
+    ;     (label :text "")
+    ;   )
+    ;   (button
+    ;     :class {tag_state.mine ? "mine" : tag_state.busy ? "busy" : ""}
+    ;     :onclick onclick
+    ;   {tag_state.name})
+    ; )))
+      (button
+        :class {tag_state.mine ? "mine" : tag_state.busy ? "busy" : ""}
+        :onclick onclick
+      " ${tag_state.name} ")
+    ))
+
+(defwidget music []
+  (box :class "music"
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+  {music != "" ? "🎵${music}" : ""}))
+
+(defwidget time [onclick]
+  (box :class "time"
+    :orientation "h"
+    :space-evenly false
+    :halign "right"
+    (button :onclick onclick timer)))
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+    :class "metric"
+    :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+      :max 101
+      :active {onchange != ""}
+      :value value
+    :onchange onchange)))
+
+
+(deflisten music :initial ""
+"playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(deflisten ws_state_main :initial ""
+"leftwm-state -w 0")
+
+(defpoll volume :interval "1s"
+"scripts/getvol")
+
+(defpoll timer :interval "10s"
+"date '+%H:%M %b %d, %Y'")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "14px"
+  :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "28px")
+  (bar))
+
+(defwidget hovered-sign [var]
+  (box :space-evenly false
+    (revealer :reveal {!var}
+      :duration "100ms"
+      :transition "slideleft"
+      (children :nth 0))
+    (revealer :reveal {var}
+      :duration "100ms"
+      :transition "slideleft"
+      (children :nth 1))))
+
+; Revealer on hover, using children
+(defwidget revealer-on-hover [var varname ?class ?duration ?transition]
+  (box :class "${class} revealer-on-hover"
+    :orientation "h"
+    :space-evenly false
+    (eventbox :class "eventbox"
+      :onhover "eww update ${varname}=true -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
+      :onhoverlost "eww update ${varname}=false -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
+      (box :space-evenly false
+        (children :nth 0)
+        (revealer :reveal var
+          :transition {transition ?: "slideright"}
+          :duration {duration ?: "500ms"}
+          (children :nth 1))
+        (box :class "${class}" (children :nth 2))))))
+
+
+(defwidget clickbox [var varname ?class ?duration ?transition]
+  (box :class "${class} clickbox" :orientation "h" :space-evenly false
+    (button :onclick "eww update ${varname}=${ var ? false : true } -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
+      (children :nth 0)
+    )
+    (revealer :reveal var
+      :transition {transition ?: "slideleft"}
+      :duration {duration ?: "500ms"}
+      (box :class "${class}"
+        :space-evenly false
+        (children :nth 1)
+        (button :onclick "eww update ${varname}=false -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord" :class "close" (label :text "Close"))
+      )
+    )
+  )
+)

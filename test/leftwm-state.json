@@ -1,0 +1,79 @@
+{
+    "window_title": "eww_bar.yuck - leftwm-theme-dark-nord - Visual Studio Code",
+    "workspaces": [
+        {
+            "h": 1200,
+            "w": 1920,
+            "x": 0,
+            "y": 0,
+            "layout": "EvenVertical",
+            "index": 0,
+            "tags": [
+                {
+                    "name": "",
+                    "index": 0,
+                    "mine": true,
+                    "visible": true,
+                    "focused": true,
+                    "busy": true
+                },
+                {
+                    "name": "",
+                    "index": 1,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                },
+                {
+                    "name": "",
+                    "index": 2,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                },
+                {
+                    "name": "A",
+                    "index": 3,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                },
+                {
+                    "name": "",
+                    "index": 4,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                },
+                {
+                    "name": "",
+                    "index": 5,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": false
+                },
+                {
+                    "name": "",
+                    "index": 6,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                },
+                {
+                    "name": "",
+                    "index": 7,
+                    "mine": false,
+                    "visible": false,
+                    "focused": false,
+                    "busy": true
+                }
+            ]
+        }
+    ]
+}

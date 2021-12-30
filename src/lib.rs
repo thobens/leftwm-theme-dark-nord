@@ -11,6 +11,8 @@ mod errors {
         SerializeToml(#[from] toml::ser::Error), // source and Display delegate to anyhow::Error
         #[error(transparent)]
         Battery(#[from] battery::Error), // source and Display delegate to anyhow::Error
+        #[error("Module not found: {0}")]
+        ModuleNotFound(String),
     }
 }
 
@@ -77,7 +79,7 @@ pub mod config {
         pub full: BatteryStateConfig,
     }
 
-    #[derive(Serialize, Deserialize)]
+    #[derive(Serialize, Deserialize, Clone)]
     pub struct BatteryStateConfig {
         pub label: String,
         pub charging_label: String,
@@ -92,31 +94,31 @@ pub mod config {
                     color: Color("#bf616a".into()),
                     label: "".into(),
                     charging_label: "".into(),
-                    threshold: 5f32,
+                    threshold: 5_f32,
                 },
                 low: BatteryStateConfig {
                     color: Color("#bf616a".into()),
                     label: "".into(),
                     charging_label: "".into(),
-                    threshold: 25f32,
+                    threshold: 25_f32,
                 },
                 normal: BatteryStateConfig {
                     color: Color("#e5e9f0".into()),
                     label: "".into(),
                     charging_label: "".into(),
-                    threshold: 75f32,
+                    threshold: 75_f32,
                 },
                 high: BatteryStateConfig {
                     color: Color("#a3be8c".into()),
                     label: "".into(),
                     charging_label: "".into(),
-                    threshold: 98f32,
+                    threshold: 98_f32,
                 },
                 full: BatteryStateConfig {
                     color: Color("#a3be8c".into()),
                     label: "".into(),
                     charging_label: "".into(),
-                    threshold: 100f32,
+                    threshold: 100_f32,
                 },
             }
         }
@@ -127,7 +129,7 @@ pub mod theme {
     use serde_derive::{Deserialize, Serialize};
     use std::fmt::Display;
 
-    #[derive(Deserialize, Serialize)]
+    #[derive(Deserialize, Serialize, Clone)]
     pub struct Color(pub String);
     // pub struct Color(pub &'a str);
 
@@ -147,28 +149,43 @@ pub mod theme {
 }
 
 pub mod modules {
+    use serde::{Deserialize, Serialize};
+
     use crate::config::Config;
 
-    pub trait Module {
+    pub trait Module<'de> {
+        type Status: Deserialize<'de> + Serialize;
         type Error;
-        fn run(&self, cfg: Config) -> Result<(), Self::Error>;
+        fn run(&self, cfg: Config) -> Result<Self::Status, Self::Error>;
     }
 
     pub mod battery {
 
+        use serde_derive::{Deserialize, Serialize};
+
         use super::Module;
-        use crate::{config::*, theme::PbPaint};
+        use crate::{config::*, PbStatusError};
+
+        #[derive(Deserialize, Serialize)]
+        pub struct BatteryStatus {
+            pub full_text: String,
+            pub theme: BatteryStateConfig,
+        }
 
         pub struct Mod {}
 
-        impl Module for Mod {
+        impl Module<'_> for Mod {
+            type Status = BatteryStatus;
             type Error = crate::PbStatusError;
 
-            fn run(&self, cfg: Config) -> Result<(), Self::Error> {
+            fn run(&self, cfg: Config) -> Result<Self::Status, Self::Error> {
                 let manager = battery::Manager::new()?;
                 let battery = manager.batteries()?.next();
                 match battery {
-                    None => println!("NaN"),
+                    None => {
+                        println!("NaN");
+                        Err(PbStatusError::ModuleNotFound("battery".into()))
+                    }
                     Some(r) => {
                         let b = r?;
                         let soc = b.state_of_charge();
@@ -183,17 +200,21 @@ pub mod modules {
                             _ => cfg.battery.full,
                         };
                         let label = match b.state() {
-                            battery::State::Charging => bs_config.charging_label,
-                            _ => bs_config.label,
+                            battery::State::Charging => &bs_config.charging_label,
+                            _ => &bs_config.label,
                         };
-                        // battery icon: 🔋
                         let out = format!("{} {}%", label, percentage.clone().value);
-                        let colorized = PbPaint::color(&out, bs_config.color);
-                        println!("%{{T1}}{}%{{T-}}", colorized);
+                        let status = BatteryStatus {
+                            full_text: out.clone(),
+                            theme: bs_config.clone(),
+                        };
+                        println!("{}", out);
+                        Ok(status)
                     }
                 }
-                Ok(())
             }
+
+            // pub mod wifi {}
         }
     }
 }

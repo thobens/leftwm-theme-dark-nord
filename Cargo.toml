@@ -19,3 +19,4 @@ thiserror = "1.0"
 clap = { version = "3.0.0-rc.9", features = ["derive"]}
 clap_generate = { version = "3.0.0-rc.9"}
 clap_generate_fig = { version = "3.0.0-rc.9"}
+shellexpand = "1.0"

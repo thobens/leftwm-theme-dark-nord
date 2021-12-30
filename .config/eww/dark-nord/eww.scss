@@ -1,0 +1,160 @@
+@import "variables.scss";
+
+* {
+  all: unset;
+  font-family: "Mononoki";
+}
+// WINDOW RELATED CSS
+.bg {
+  background-color: #1E222A;
+  border: 1px solid #1E222B;
+}
+
+.bg-box {
+  background-color: transparent;
+}
+
+.notes {
+  padding: 10px 20px 10px 5px;
+}
+
+window {
+  background: $color-bg;
+  color: $color-fg;
+  border-radius: 8px;
+  border: 1px solid #2e3440;
+}
+
+// MISC EDITING
+.uinfo {
+  font-size: 1.25rem;
+}
+.cpu {
+  padding: 19px;
+}
+
+// METRIC LOOKS
+.metric scale trough highlight {
+  all: unset;
+  color: #000000;
+  background: #5E81ac;
+  //border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: $color-normal-black;
+  border-radius: 8px;
+  min-height: 10px;
+  min-width: 100px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.metric .label {
+  color: #B48EAD;
+  font-size: 1.5rem;
+}
+
+// POWERMENU
+.bigpowermenu {
+  font-size: 3rem;
+}
+
+.quicksettings {
+  font-size: 1.75rem;
+}
+
+// WIDGET MISC SETTINGS
+
+.quote-text {
+  padding: 5px;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #BF616A;
+}
+
+.appbar{
+  font-size: 2rem;
+}
+
+.cal {
+  color: $color-normal-cyan;
+  padding: 5px;
+  padding-bottom: 1px;
+}
+
+.favs {
+  color: $color-normal-white;
+  font-size: 2rem;
+}
+
+.small-date {
+  font-weight: 700;
+}
+
+// Search App CSS
+.searchapps-bar {
+  color: #88c0d0;
+  font-size: 1.5rem;
+  margin: -2px;
+  padding: 30px 90px 30px 90px;
+  background-color: #1E222A;
+  border: 6px solid #80A0C0;
+}
+.search-bar {
+  color: #88c0d0;
+}
+.search-label {
+  font-family: "Iosevka";
+  font-size: 2rem;
+  font-weight: 700;
+  padding-right: 20px;
+}
+.app-container {
+  margin: -2px;
+  font-size: 1.25rem;
+  padding: 30px;
+  color: #88c0d0;
+}
+.item {
+  padding: 10px;
+  background: rgba(10,10,10,0.4);
+}
+
+.label-control {
+  color: #81a1c1;
+  font-size: 1.5rem;
+  padding: 15px;
+}
+
+.controls {
+  font-size: 2rem;
+  padding-bottom: 20px;
+}
+
+.bar {
+  border: 0px;
+  border-radius: 8px;
+  background-color: $color-bg;
+  color: $color-fg;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tag {
+  font-size: 2rem;
+}
+
+.tag .mine {
+  color: $color-bg;
+  background-color: $color-normal-green;
+}
+
+.tag .busy {
+  color: $color-normal-blue;
+}
+
+.tag .notified {
+  color: $color-normal-yellow;
+}

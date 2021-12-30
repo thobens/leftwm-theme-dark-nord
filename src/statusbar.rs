@@ -2,8 +2,11 @@ use std::path::PathBuf;
 
 use leftwm_theme_dark_nord::{
     config::Config,
-    modules::{battery as battery_mod, Module},
-    Result,
+    modules::{
+        battery::{self as battery_mod, BatteryStatus},
+        Module,
+    },
+    PbStatusError, Result,
 };
 
 use clap::{App, IntoApp, Parser, ValueHint};
@@ -16,7 +19,7 @@ use clap_generate::{
 #[derive(Parser, Debug)]
 #[clap(name = "pb-status", author, version, about)]
 struct StatusBarApp {
-    #[clap(short = 'c', long = "config", value_hint = ValueHint::FilePath)]
+    #[clap(short = 'c', long = "config", value_hint = ValueHint::FilePath, default_value = "~/.config/leftwm/themes/current/.config/pb-status/config.toml")]
     cfg_path: PathBuf,
     #[clap(subcommand)]
     cmd: StatusBarCmd,
@@ -33,6 +36,8 @@ struct ModuleArgs {
     /// The name of the module to execute
     #[clap(value_name = "MODULE")]
     module: String,
+    #[clap(short = 'o', long = "format", possible_values = ["json", "plain"], default_value = "plain")]
+    format: String,
 }
 
 impl ModuleArgs {
@@ -40,11 +45,11 @@ impl ModuleArgs {
         match self.module.as_str() {
             "battery" => {
                 let bm = battery_mod::Mod {};
-                bm.run(cfg)
+                bm.run(cfg).map(|_| ())
             }
             _ => {
                 println!("No module named {}", &self.module);
-                Ok(())
+                Err(PbStatusError::ModuleNotFound("battery".into()))
             }
         }
     }
