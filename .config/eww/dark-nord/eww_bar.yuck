@@ -5,17 +5,18 @@
     (sidestuff)))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+    (battery :value {battery_poll})
+    (metric :label ""
       :value volume
     :onchange "amixer -D pulse sset Master {}%")
-    (metric :label ""
-      :value {EWW_RAM.used_mem_perc}
-    :onchange "")
-    (metric :label "💾"
-      :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-    :onchange "")
-    (time :onclick "eww open sys -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord")))
+    ; (metric :label ""
+    ;   :value {EWW_RAM.used_mem_perc}
+    ; :onchange "")
+    ; (metric :label "💾"
+    ;   :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+    ; :onchange "")
+    (time :onclick "eww open calendar -c ~/.config/leftwm/themes/current/.config/eww/dark-nord")))
 
 (defwidget workspaces []
   (box :class "workspaces"
@@ -62,6 +63,14 @@
       " ${tag_state.name} ")
     ))
 
+(defwidget battery [value]
+  (box :class "battery"
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+  {value != "" ? "${value}" : ""}))
+
+
 (defwidget music []
   (box :class "music"
     :orientation "h"
@@ -98,6 +107,9 @@
 (defpoll volume :interval "1s"
 "scripts/getvol")
 
+(defpoll battery_poll :interval "1s"
+"~/.cargo/bin/lefty-status -c ~/.config/leftwm/themes/current/.config/lefty-status/config.toml module battery -o yaml")
+
 (defpoll timer :interval "10s"
 "date '+%H:%M %b %d, %Y'")
 
@@ -107,9 +119,9 @@
   :geometry (geometry :x "0%"
     :y "0%"
     :width "100%"
-    :height "14px"
+    :height "32px"
   :anchor "bottom center")
-  :reserve (struts :side "bottom" :distance "28px")
+  :reserve (struts :side "bottom" :distance "32px")
   (bar))
 
 (defwidget hovered-sign [var]
@@ -129,8 +141,8 @@
     :orientation "h"
     :space-evenly false
     (eventbox :class "eventbox"
-      :onhover "eww update ${varname}=true -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
-      :onhoverlost "eww update ${varname}=false -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
+      :onhover "eww update ${varname}=true -c ~/.config/leftwm/themes/current/.config/eww/dark-nord"
+      :onhoverlost "eww update ${varname}=false -c ~/.config/leftwm/themes/current/.config/eww/dark-nord"
       (box :space-evenly false
         (children :nth 0)
         (revealer :reveal var
@@ -142,7 +154,7 @@
 
 (defwidget clickbox [var varname ?class ?duration ?transition]
   (box :class "${class} clickbox" :orientation "h" :space-evenly false
-    (button :onclick "eww update ${varname}=${ var ? false : true } -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord"
+    (button :onclick "eww update ${varname}=${ var ? false : true } -c ~/.config/leftwm/themes/current/.config/eww/dark-nord"
       (children :nth 0)
     )
     (revealer :reveal var
@@ -151,7 +163,7 @@
       (box :class "${class}"
         :space-evenly false
         (children :nth 1)
-        (button :onclick "eww update ${varname}=false -c $HOME/.config/leftwm/themes/current/.config/eww/dark-nord" :class "close" (label :text "Close"))
+        (button :onclick "eww update ${varname}=false -c ~/.config/leftwm/themes/current/.config/eww/dark-nord" :class "close" (label :text "Close"))
       )
     )
   )

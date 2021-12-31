@@ -1,0 +1,73 @@
+# ██████╗ ██╗   ██╗███████╗████████╗██╗   ██╗██████╗  █████╗ ██████╗ 
+# ██╔══██╗██║   ██║██╔════╝╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+# ██████╔╝██║   ██║███████╗   ██║    ╚████╔╝ ██████╔╝███████║██████╔╝
+# ██╔══██╗██║   ██║╚════██║   ██║     ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+# ██║  ██║╚██████╔╝███████║   ██║      ██║   ██████╔╝██║  ██║██║  ██║
+# ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+
+[battery]
+format = "{label} {value}%"                                            
+# Battery life
+[battery.critical]
+label = ''
+charging_label = ''
+color = '#bf616a'
+threshold = 5.0
+
+[battery.low]
+label = ''
+charging_label = ''
+color = '#ebcb8b'
+threshold = 25.0
+
+[battery.normal]
+label = ''
+charging_label = ''
+color = '#e5e9f0'
+threshold = 75.0
+
+[battery.high]
+label = ''
+charging_label = ''
+color = '#a3be8c'
+threshold = 98.0
+
+[battery.full]
+label = ''
+charging_label = ''
+color = '#a3be8c'
+threshold = 100.0
+
+# CPU 
+[cpu]
+format = "{load_label} {load}% | {temp_label} {temp}{temp_unit}°C"
+
+[cpu.low]
+load_label = ''
+temp_label = ''
+color = '#a3be8c'
+threshold = 33.0
+
+[cpu.mid]
+load_label = ''
+temp_label = ''
+color = '#ebcb8b'
+threshold = 67.0
+
+[cpu.high]
+load_label = ''
+temp_label = ''
+color = '#a3be8c'
+
+# [network.not_connected]
+# label = ""
+# color = "#bf616a"
+# # background = ""
+# [network.connected]
+# label = ""
+# color = "#ebcb8b"
+# # background = ""
+# [network.connecting]
+# label = ""
+# color = "#a3be8c"
+# # background = ""

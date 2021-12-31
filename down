@@ -4,12 +4,12 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 #set background
 feh --bg-scale "$SCRIPTPATH"/down.jpg
 
-leftwm command "UnloadTheme"
-
 eww close-all -c $SCRIPTPATH/.config/eww/dark-nord 
 eww kill -c $SCRIPTPATH/.config/eww/dark-nord
 
 pkill eww
+
+leftwm command "UnloadTheme"
 
 pkill picom
 # pkill polybar

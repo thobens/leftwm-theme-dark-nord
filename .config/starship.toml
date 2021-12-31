@@ -1,6 +1,61 @@
+format = """
+[┌─ $username$hostname$directory $fill](bold dimmed white)
+[│](bold dimmed white) $kubernetes$git_branch$git_commit$git_status$git_state$rust$package
+[└─](bold dimmed white)$character"""
+
+[username]
+style_user = "bold cyan"
+
+[hostname]
+style_user = "bold cyan"
+
+[git_branch]
+style = "bold cyan"
+symbol = " "
+
+[fill]
+symbol = "─"
+style = "dimmed white"
+
+[git_state]
+style = "italic yellow"
+merge = "[ MERGING]($style)"
+rebase = "[ REBASE]($style)"
+cherry_pick = "[ PICKING]($style)"
+
+[git_status]
+style = "blue"
+conflicted = "[](red)"
+up_to_date = "[](green)"
+
+[git_commit]
+style = "italic green"
+
+[rust]
+style = "bold green"
+
+[package]
+style = "bold green"
+
 [directory]
 style = "bold blue"
 
+[gcloud]
+disabled = true
+
+[aws]
+disabled = true
+
 [kubernetes]
-format = 'on [ﴱ $context \($namespace\)](dimmed green) '
+format = 'on [ﴱ $context](italic blue) '
 disabled = false
+
+[kubernetes.context_aliases]
+# rename every OpenShift cluster at once:
+".*/(?P<cluster>[\\w-]+)/.*" = "$cluster"
+"(?P<cluster>.*)/[\\w-]+:6443/.*" = "$cluster"
+
+# Contexts from GKE, AWS and other cloud providers usually carry additional information, like the region/zone.
+# The following entry matches on the GKE format (`gke_projectname_zone_cluster-name`)
+# and renames every matching kube context into a more readable format (`gke-cluster-name`):
+"gke_.*_(?P<cluster>[\\w-]+)" = "gke-$cluster"

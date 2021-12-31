@@ -11,14 +11,15 @@ configuration {
 }
 
 * {
-    font: "SauceCodePro Nerd Font Medium 14";
+    font: "SauceCodePro Nerd Font Semibold 11";
     foreground:                 #f8f8f2;
-    background-color:           #282a36b3;
-    selected-foreground:        #bd93f9;
-    selected-background:        #b2b2b250;
-    separatorcolor:             #ff79c6;
-    bordercolor:                #ff79c6;
-    highlightcolor:             #8be9fd;
+    foreground-alt:             #a5abb6;
+    background-color:           #2e3440b3;
+    selected-foreground:        #a3be8c;
+    selected-background:        #a3be8c50;
+    separatorcolor:             #7c7c7c;
+    bordercolor:                #809575;
+    highlightcolor:             #809575;
     transparent:                #00000000;
 }
 

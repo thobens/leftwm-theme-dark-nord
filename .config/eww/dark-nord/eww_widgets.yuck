@@ -64,7 +64,7 @@
   (box :class "cpu" :orientation "v" :space-evenly false :halign "center" :valign "center"
     (metric :label "﬙" :value {EWW_CPU.avg} :onchange "")
     (metric :label "" :value {EWW_RAM.used_mem_perc} :onchange "")
-    (metric :label "龍" :value {(EWW_NET.wlan0.NET_UP)/100} :onchange "")
+    (metric :label "龍" :value {(EWW_NET.wlp0s20f3.NET_UP)/100} :onchange "")
     (metric :label "" :value {(EWW_DISK["/"].free / EWW_DISK["/"].total) * 100} :onchange "")))
 
 ;;;; Random Quote Widget
@@ -79,7 +79,7 @@
   (box :orientation "h" :space-evenly true :class "quicksettings" :spacing "10" :halign "center" :valign "center"
     (button :style "color: #5e81ac;" :onclick "mpv --demuxer-lavf-format=video4linux2 --demuxer-lavf-o-set=input_format=mjpeg av://v4l2:/dev/video0 &" (image :path "images/camera-web.svg" :width 32 :height 32))
     (button :style "color: #81a1c1; padding-left: 3px;" :onclick "pavucontrol &" (image :path "images/audio-headphones.svg" :width 32 :height 32))
-    (button :style "color: #b48ead;" :onclick "sh ~/.config/eww/scripts/airplane_mode.sh &" (image :path "images/network-card.svg" :width 32 :height 32))))
+    (button :style "color: #b48ead;" :onclick "sh ~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/airplane_mode.sh &" (image :path "images/network-card.svg" :width 32 :height 32))))
 
 ;;;; AppBar widget
 (defwidget appbar []
@@ -104,7 +104,7 @@
     (box :orientation "v" :space-evenly false :class "search-win" :halign "top" :valign "top"
       (box :orientation "h" :space-evenly false :class "searchapps-bar" :halign "top" :valign "top"
         (label :class "search-label" :text "")
-        (input :class "search-bar" :onchange "~/.config/eww/scripts/search.sh {}"))
+        (input :class "search-bar" :onchange "~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/search.sh {}"))
       (literal :halign "center" :valign "center" :class "app-container" :content search_listen))))
 
 ;;;; Rofi style powermenu
@@ -132,17 +132,15 @@
   (box :orientation "v" :space-evenly false :class "network" :halign "center" :valign "center" :hexpand true :vexpand true
     (label :class "label-control" :text "${ssid}" :halign "center" :limit-width 50 :show-truncated true :hexpand true :vexpand true)
     (box :orientation "h" :space-evenly false :class "controls" :halign "center" :valign "center" :spacing 20
-      (button :style "color: #d8dee9;" :onclick "sh ~/.config/eww/scripts/airplane_mode.sh" "")
+      (button :style "color: #d8dee9;" :onclick "sh ~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/airplane_mode.sh" "")
       (button :style "color: #e5e9f0;" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e bmon &" "")
       (button :style "color: #eceff4;" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e nmtui &" "")
       (button :style "color: #e8e8e8;" :onclick "nm-connection-editor &" ""))))
 
 (defwidget screenshot []
   
-  (box :orientation "v" :space-evenly false :class "network" :halign "center" :valign "center" :hexpand true :vexpand true
+  (box :orientation "v" :space-evenly false :class "screenshot" :halign "center" :valign "center" :hexpand true :vexpand true
     (label :class "label-control" :text "  Screenshot" :halign "center" :limit-width 50 :show-truncated true :hexpand true :vexpand true)
     (box :orientation "h" :space-evenly false :class "controls" :halign "center" :valign "center" :spacing 20
-      (button :style "color: #d8dee9;" :onclick "eww close screenshot && ~/.config/eww/scripts/screenshot 'SCREEN'"  "")
-      (button :style "color: #e5e9f0;" :onclick "eww close screenshot && ~/.config/eww/scripts/screenshot 'SELECT'" ""))))
-
-(include "eww_bar.yuck")
+      (button :style "color: #d8dee9;" :onclick "eww close screenshot && ~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/screenshot 'SCREEN'"  "")
+      (button :style "color: #e5e9f0;" :onclick "eww close screenshot && ~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/screenshot 'SELECT'" ""))))

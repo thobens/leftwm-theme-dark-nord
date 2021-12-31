@@ -23,6 +23,7 @@ feh --bg-fill "$SCRIPTPATH"/wallpapers/background2.jpg
 dunst &
 
 eww daemon -c $SCRIPTPATH/.config/eww/dark-nord
+sleep 1
 index=0
 # leftwm-state -q -n -t "$SCRIPTPATH"/sizes.liquid | sed -r '/^\s*$/d' | while read -r width
 # do

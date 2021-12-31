@@ -3,8 +3,8 @@ use std::path::PathBuf;
 use leftwm_theme_dark_nord::{
     config::Config,
     modules::{
-        battery::{self as battery_mod, BatteryStatus},
-        Module,
+        battery::{self as battery_mod},
+        cpu, Module,
     },
     PbStatusError, Result,
 };
@@ -17,9 +17,9 @@ use clap_generate::{
 };
 
 #[derive(Parser, Debug)]
-#[clap(name = "pb-status", author, version, about)]
+#[clap(name = "lefty-status", author, version, about)]
 struct StatusBarApp {
-    #[clap(short = 'c', long = "config", value_hint = ValueHint::FilePath, default_value = "~/.config/leftwm/themes/current/.config/pb-status/config.toml")]
+    #[clap(short = 'c', long = "config", value_hint = ValueHint::FilePath, default_value = "~/.config/leftwm/themes/current/.config/lefty-status/config.toml")]
     cfg_path: PathBuf,
     #[clap(subcommand)]
     cmd: StatusBarCmd,
@@ -45,6 +45,10 @@ impl ModuleArgs {
         match self.module.as_str() {
             "battery" => {
                 let bm = battery_mod::Mod {};
+                bm.run(cfg).map(|_| ())
+            }
+            "cpu" => {
+                let bm = cpu::Mod {};
                 bm.run(cfg).map(|_| ())
             }
             _ => {

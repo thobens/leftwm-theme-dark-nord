@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
-name = "pb-status"
+name = "lefty-status"
 path = "src/statusbar.rs"
 
 [dependencies]
@@ -18,5 +18,6 @@ serde_derive = "1.0"
 thiserror = "1.0"
 clap = { version = "3.0.0-rc.9", features = ["derive"]}
 clap_generate = { version = "3.0.0-rc.9"}
-clap_generate_fig = { version = "3.0.0-rc.9"}
 shellexpand = "1.0"
+systemstat = "0.1"
+strfmt = "0.1"

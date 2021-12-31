@@ -6,8 +6,8 @@
 }
 // WINDOW RELATED CSS
 .bg {
-  background-color: #1E222A;
-  border: 1px solid #1E222B;
+  background-color: $color-bg-alt;
+  border: 1px solid $color-bg-alt;
 }
 
 .bg-box {
@@ -22,7 +22,7 @@ window {
   background: $color-bg;
   color: $color-fg;
   border-radius: 8px;
-  border: 1px solid #2e3440;
+  border: 1px solid $color-bg;
 }
 
 // MISC EDITING
@@ -37,12 +37,12 @@ window {
 .metric scale trough highlight {
   all: unset;
   color: #000000;
-  background: #5E81ac;
-  //border-radius: 10px;
+  background: $color-dim-cyan;
+  border-radius: 8px;
 }
 .metric scale trough {
   all: unset;
-  background-color: $color-normal-black;
+  background-color: $color-bright-black;
   border-radius: 8px;
   min-height: 10px;
   min-width: 100px;
@@ -51,8 +51,8 @@ window {
 }
 
 .metric .label {
-  color: #B48EAD;
-  font-size: 1.5rem;
+  color: $color-dim-white;
+  font-size: 2rem;
 }
 
 // POWERMENU
@@ -71,7 +71,7 @@ window {
   font-size: 1rem;
   font-style: italic;
   font-weight: 600;
-  color: #BF616A;
+  color: $color-normal-magenta;
 }
 
 .appbar{
@@ -95,15 +95,15 @@ window {
 
 // Search App CSS
 .searchapps-bar {
-  color: #88c0d0;
+  color: $color-normal-cyan;
   font-size: 1.5rem;
   margin: -2px;
   padding: 30px 90px 30px 90px;
-  background-color: #1E222A;
-  border: 6px solid #80A0C0;
+  background-color: $color-bg-alt; // #1E222A;
+  border: 6px solid $color-bright-blue;
 }
 .search-bar {
-  color: #88c0d0;
+  color: $color-normal-cyan;
 }
 .search-label {
   font-family: "Iosevka";
@@ -115,7 +115,7 @@ window {
   margin: -2px;
   font-size: 1.25rem;
   padding: 30px;
-  color: #88c0d0;
+  color: $color-normal-cyan;
 }
 .item {
   padding: 10px;
@@ -123,7 +123,7 @@ window {
 }
 
 .label-control {
-  color: #81a1c1;
+  color: $color-bright-blue;
   font-size: 1.5rem;
   padding: 15px;
 }
@@ -144,6 +144,7 @@ window {
 
 .tag {
   font-size: 2rem;
+  color: $color-dim-white;
 }
 
 .tag .mine {
@@ -152,7 +153,7 @@ window {
 }
 
 .tag .busy {
-  color: $color-normal-blue;
+  color: $color-dim-cyan;
 }
 
 .tag .notified {
