@@ -40,23 +40,23 @@ threshold = 100.0
 
 # CPU 
 [cpu]
-format = "{load_label} {load}% | {temp_label} {temp}{temp_unit}°C"
+format = "{load_label} {load}% | {temp_label} {temp}°C"
 
 [cpu.low]
-load_label = ''
-temp_label = ''
+load_label = ''
+temp_label = ''
 color = '#a3be8c'
 threshold = 33.0
 
 [cpu.mid]
-load_label = ''
-temp_label = ''
+load_label = ''
+temp_label = ''
 color = '#ebcb8b'
 threshold = 67.0
 
 [cpu.high]
-load_label = ''
-temp_label = ''
+load_label = ''
+temp_label = ''
 color = '#a3be8c'
 
 # [network.not_connected]

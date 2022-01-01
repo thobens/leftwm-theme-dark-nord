@@ -32,7 +32,7 @@ launcher    : Rofi
 
 1. Install all required dependencies
 
-    yay -S leftwm picom polybar nerd-fonts-complete rofi alacritty starship
+    yay -S leftwm playerctl picom polybar nerd-fonts-complete rofi alacritty starship
 
 2. Clone the repository
 

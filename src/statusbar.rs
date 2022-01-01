@@ -1,5 +1,11 @@
-use std::path::PathBuf;
+use std::{fmt::Display, path::PathBuf};
 
+use clap::{App, IntoApp, Parser, ValueHint};
+use clap_generate::{
+    generate,
+    generators::{Bash, Elvish, Fish, PowerShell, Zsh},
+    Generator,
+};
 use leftwm_theme_dark_nord::{
     config::Config,
     modules::{
@@ -8,13 +14,23 @@ use leftwm_theme_dark_nord::{
     },
     PbStatusError, Result,
 };
+use serde::Serialize;
 
-use clap::{App, IntoApp, Parser, ValueHint};
-use clap_generate::{
-    generate,
-    generators::{Bash, Elvish, Fish, PowerShell, Zsh},
-    Generator,
-};
+#[derive(Debug)]
+enum OutputFormat {
+    Plain,
+    Json,
+}
+
+impl From<String> for OutputFormat {
+    fn from(s: String) -> Self {
+        match s.as_str() {
+            "plain" => Self::Plain,
+            "json" => Self::Json,
+            _ => panic!("OutputFormat {} unknown", s),
+        }
+    }
+}
 
 #[derive(Parser, Debug)]
 #[clap(name = "lefty-status", author, version, about)]
@@ -45,17 +61,33 @@ impl ModuleArgs {
         match self.module.as_str() {
             "battery" => {
                 let bm = battery_mod::Mod {};
-                bm.run(cfg).map(|_| ())
+                serialize_module_result(self.format.clone().into(), bm.run(cfg)?).map(|s| {
+                    println!("{}", s);
+                    ()
+                })
             }
             "cpu" => {
-                let bm = cpu::Mod {};
-                bm.run(cfg).map(|_| ())
+                let cm = cpu::Mod {};
+                serialize_module_result(self.format.clone().into(), cm.run(cfg)?).map(|s| {
+                    println!("{}", s);
+                    ()
+                })
             }
             _ => {
                 println!("No module named {}", &self.module);
                 Err(PbStatusError::ModuleNotFound("battery".into()))
             }
         }
+    }
+}
+
+fn serialize_module_result<T: Serialize + Display>(
+    format: OutputFormat,
+    result: T,
+) -> Result<String> {
+    match format {
+        OutputFormat::Plain => Ok(format!("{}", result)),
+        OutputFormat::Json => serde::__private::Ok(serde_json::to_string(&result)?),
     }
 }
 

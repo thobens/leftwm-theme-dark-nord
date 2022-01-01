@@ -10,9 +10,15 @@ mod errors {
         #[error(transparent)]
         SerializeToml(#[from] toml::ser::Error), // source and Display delegate to anyhow::Error
         #[error(transparent)]
+        SerializeJson(#[from] serde_json::Error), // source and Display delegate to anyhow::Error
+        #[error(transparent)]
         Battery(#[from] battery::Error), // source and Display delegate to anyhow::Error
         #[error(transparent)]
-        Format(#[from] strfmt::FmtError), // source and Display delegate to anyhow::Error
+        DynamicFormat(#[from] strfmt::FmtError), // source and Display delegate to anyhow::Error
+        #[error(transparent)]
+        StaticFormat(#[from] std::fmt::Error), // source and Display delegate to anyhow::Error
+        #[error(transparent)]
+        MsgRecv(#[from] std::sync::mpsc::RecvError), // source and Display delegate to anyhow::Error
         #[error("Module not found: {0}")]
         ModuleNotFound(String),
     }
@@ -24,19 +30,18 @@ mod result {
     pub type Result<T> = std::result::Result<T, PbStatusError>;
 }
 
-pub mod util;
-
 pub use errors::PbStatusError;
 pub use result::Result;
 
 pub mod config {
 
-    use crate::PbStatusError;
-    use crate::{theme::Color, Result};
+    use crate::{theme::Color, PbStatusError, Result};
     use serde_derive::{Deserialize, Serialize};
-    use std::fs::OpenOptions;
-    use std::io::prelude::*;
-    use std::{fs::File, path::PathBuf};
+    use std::{
+        fs::{File, OpenOptions},
+        io::prelude::*,
+        path::PathBuf,
+    };
     use toml;
 
     #[derive(Default, Serialize, Deserialize)]
@@ -216,7 +221,7 @@ pub mod modules {
 
     pub mod battery {
 
-        use std::collections::HashMap;
+        use std::{collections::HashMap, fmt::Display};
 
         use super::Module;
         use crate::{config::*, PbStatusError};
@@ -226,7 +231,14 @@ pub mod modules {
         #[derive(Deserialize, Serialize)]
         pub struct BatteryStatus {
             pub full_text: String,
-            pub theme: BatteryStateConfig,
+            pub state_name: String,
+            pub state: BatteryStateConfig,
+        }
+
+        impl Display for BatteryStatus {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.write_fmt(format_args!("{}", self.full_text))
+            }
         }
 
         pub struct Mod {}
@@ -245,13 +257,15 @@ pub mod modules {
                         let soc = b.state_of_charge().value;
 
                         let percentage = soc * 100f32;
-                        let bs_config = match percentage {
-                            p if p < cfg.battery.critical.threshold => cfg.battery.critical,
-                            p if p < cfg.battery.low.threshold => cfg.battery.low,
-                            p if p < cfg.battery.normal.threshold => cfg.battery.normal,
-                            p if p < cfg.battery.high.threshold => cfg.battery.high,
-                            p if p <= cfg.battery.full.threshold => cfg.battery.full,
-                            _ => cfg.battery.full,
+                        let (sn, bs_config) = match percentage {
+                            p if p < cfg.battery.critical.threshold => {
+                                ("critical", cfg.battery.critical)
+                            }
+                            p if p < cfg.battery.low.threshold => ("low", cfg.battery.low),
+                            p if p < cfg.battery.normal.threshold => ("normal", cfg.battery.normal),
+                            p if p < cfg.battery.high.threshold => ("high", cfg.battery.high),
+                            p if p <= cfg.battery.full.threshold => ("full", cfg.battery.full),
+                            _ => ("NaN", cfg.battery.full),
                         };
                         let label = match b.state() {
                             battery::State::Charging => &bs_config.charging_label,
@@ -265,7 +279,8 @@ pub mod modules {
 
                         Ok(BatteryStatus {
                             full_text: out.clone(),
-                            theme: bs_config.clone(),
+                            state_name: sn.to_string(),
+                            state: bs_config.clone(),
                         })
                     }
                 }
@@ -277,7 +292,7 @@ pub mod modules {
         use super::Module;
         use crate::config::*;
         use serde_derive::{Deserialize, Serialize};
-        use std::{collections::HashMap, thread};
+        use std::{collections::HashMap, fmt::Display, thread};
         use strfmt::strfmt;
         use systemstat::{Duration, Platform, System};
 
@@ -286,7 +301,14 @@ pub mod modules {
             pub full_text: String,
             pub load: f32,
             pub temp: f32,
-            pub theme: CpuStateConfig,
+            pub state_name: String,
+            pub state: CpuStateConfig,
+        }
+
+        impl Display for CpuStatus {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.write_fmt(format_args!("{}", self.full_text))
+            }
         }
 
         pub struct Mod {}
@@ -302,14 +324,14 @@ pub mod modules {
                 let percentage =
                     (cpu.user + cpu.nice + cpu.system + cpu.interrupt + cpu.idle) * 100.0;
 
-                let cs_config = match percentage {
+                let (tn, cs_config) = match percentage {
                     p if cfg.cpu.low.threshold.is_some() && p < cfg.cpu.low.threshold.unwrap() => {
-                        cfg.cpu.low
+                        ("low", cfg.cpu.low)
                     }
                     p if cfg.cpu.mid.threshold.is_some() && p < cfg.cpu.mid.threshold.unwrap() => {
-                        cfg.cpu.mid
+                        ("mid", cfg.cpu.mid)
                     }
-                    _ => cfg.cpu.high,
+                    _ => ("high", cfg.cpu.high),
                 };
 
                 let mut values = HashMap::new();
@@ -319,13 +341,14 @@ pub mod modules {
                 values.insert("load".into(), load);
                 values.insert("temp_label".into(), cs_config.temp_label.clone());
                 values.insert("temp".into(), temp.to_string());
-                let out = strfmt(&cfg.battery.format, &values)?;
+                let out = strfmt(&cfg.cpu.format, &values)?;
 
                 Ok(CpuStatus {
                     full_text: out.clone(),
                     load: percentage,
                     temp: temp.clone(),
-                    theme: cs_config.clone(),
+                    state_name: tn.to_string(),
+                    state: cs_config.clone(),
                 })
             }
         }

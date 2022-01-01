@@ -2,7 +2,7 @@
 
 * {
   all: unset;
-  font-family: "Mononoki";
+  font-family: "mononoki Nerd Font";
 }
 // WINDOW RELATED CSS
 .bg {
@@ -30,7 +30,7 @@ window {
   font-size: 1.25rem;
 }
 .cpu {
-  padding: 19px;
+  // background-color: $color-normal-red;
 }
 
 // METRIC LOOKS
@@ -52,7 +52,7 @@ window {
 
 .metric .label {
   color: $color-dim-white;
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 // POWERMENU
@@ -75,7 +75,7 @@ window {
 }
 
 .appbar{
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 .cal {
@@ -143,8 +143,12 @@ window {
 }
 
 .tag {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: $color-dim-white;
+}
+
+.tag .tag-icon {
+  padding-right: 6px;
 }
 
 .tag .mine {

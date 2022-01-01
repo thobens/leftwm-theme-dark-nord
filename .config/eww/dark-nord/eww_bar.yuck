@@ -6,6 +6,7 @@
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+    (cpu :value {cpu_poll})
     (battery :value {battery_poll})
     (metric :label ""
       :value volume
@@ -58,17 +59,25 @@
     ;   {tag_state.name})
     ; )))
       (button
-        :class {tag_state.mine ? "mine" : tag_state.busy ? "busy" : ""}
+        :class "tag-icon ${tag_state.mine ? 'mine' : tag_state.busy ? 'busy' : ''}"
         :onclick onclick
       " ${tag_state.name} ")
     ))
 
 (defwidget battery [value]
-  (box :class "battery"
+  (box :class "battery ${value.theme_variation}"
     :orientation "h"
     :space-evenly false
     :halign "center"
-  {value != "" ? "${value}" : ""}))
+    :style "background: ${value.background};color: ${value.color};"
+  {value != "" && value.full_text != "" ? value.full_text : ""}))
+
+(defwidget cpu [value]
+  (box :class "cpu"
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+  {value != "" && value.full_text != "" ? value.full_text : "test"}))
 
 
 (defwidget music []
@@ -107,8 +116,11 @@
 (defpoll volume :interval "1s"
 "scripts/getvol")
 
-(defpoll battery_poll :interval "1s"
-"~/.cargo/bin/lefty-status -c ~/.config/leftwm/themes/current/.config/lefty-status/config.toml module battery -o yaml")
+(defpoll battery_poll :interval "10s"
+"~/.cargo/bin/lefty-status -c ~/.config/leftwm/themes/current/.config/lefty-status/config.toml module battery -o json")
+
+(defpoll cpu_poll :interval "1s"
+"~/.cargo/bin/lefty-status -c ~/.config/leftwm/themes/current/.config/lefty-status/config.toml module cpu -o json")
 
 (defpoll timer :interval "10s"
 "date '+%H:%M %b %d, %Y'")
