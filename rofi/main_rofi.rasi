@@ -11,12 +11,12 @@ configuration {
 }
 
 * {
-    font: "SauceCodePro Nerd Font Semibold 11";
+    font: "mononoki Nerd Font Semibold 12";
     foreground:                 #f8f8f2;
     foreground-alt:             #a5abb6;
     background-color:           #2e3440b3;
-    selected-foreground:        #a3be8c;
-    selected-background:        #a3be8c50;
+    selected-foreground:        #2e3440;
+    selected-background:        #a3be8c;
     separatorcolor:             #7c7c7c;
     bordercolor:                #809575;
     highlightcolor:             #809575;
@@ -61,10 +61,14 @@ configuration {
     children: [element-icon, element-text];
 }
 #element-text { 
-    highlight:     None #8be9fd; 
+    highlight:  @highlightcolor;
+    text-color: @foreground;
+    background-color: @transparent;
+    padding: 5px;
 }
 #element-icon {
-    size: 0.9em;
+    size: 1.5em;
+    background-color: @transparent;
 }
 #element.normal.normal {
     background-color: @background;
@@ -88,7 +92,7 @@ configuration {
 }
 #element.selected.active {
     background-color: @selected-background;
-    text-color:       @selected-background;
+    text-color:       @selected-foreground;
 }
 #element.alternate.normal {
     background-color: @background;

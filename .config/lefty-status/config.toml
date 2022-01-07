@@ -55,9 +55,9 @@ color = '#ebcb8b'
 threshold = 67.0
 
 [cpu.high]
-load_label = ''
+load_label = ''
 temp_label = ''
-color = '#a3be8c'
+color = '#bf616a'
 
 # [network.not_connected]
 # label = ""

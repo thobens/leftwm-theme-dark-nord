@@ -1,17 +1,25 @@
 @import "variables.scss";
 
+$window-bg: $color-bg;
+$spacing: 8px;
+$spacing-double: 16px;
+$spacing-half: 4px;
+$border-radius: $spacing-half;
+$bar-vertical-padding: $spacing-half;
+$bar-horizontal-padding: $spacing;
+
 * {
   all: unset;
-  font-family: "mononoki Nerd Font";
+  font-family: "mononoki Nerd Font Mono";
 }
 // WINDOW RELATED CSS
 .bg {
-  background-color: $color-bg-alt;
-  border: 1px solid $color-bg-alt;
+  background-color: $window-bg;
+  border: 1px solid $window-bg;
 }
 
 .bg-box {
-  background-color: transparent;
+  background-color: $window-bg;
 }
 
 .notes {
@@ -19,18 +27,15 @@
 }
 
 window {
-  background: $color-bg;
+  background: transparent;
   color: $color-fg;
-  border-radius: 8px;
-  border: 1px solid $color-bg;
+  // border-radius: 8px;
+  border: 1px solid transparent;
 }
 
 // MISC EDITING
 .uinfo {
   font-size: 1.25rem;
-}
-.cpu {
-  // background-color: $color-normal-red;
 }
 
 // METRIC LOOKS
@@ -52,12 +57,21 @@ window {
 
 .metric .label {
   color: $color-dim-white;
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 
 // POWERMENU
 .bigpowermenu {
-  font-size: 3rem;
+  padding-right: 10px;
+  font-size: 1.5rem;
+  color: $color-dim-white;
+  // background-color: $window-bg;
+}
+
+.powerbutton {
+  font-size: 1.5rem;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .quicksettings {
@@ -99,7 +113,7 @@ window {
   font-size: 1.5rem;
   margin: -2px;
   padding: 30px 90px 30px 90px;
-  background-color: $color-bg-alt; // #1E222A;
+  background-color: $window-bg; // #1E222A;
   border: 6px solid $color-bright-blue;
 }
 .search-bar {
@@ -125,7 +139,7 @@ window {
 .label-control {
   color: $color-bright-blue;
   font-size: 1.5rem;
-  padding: 15px;
+  // padding: 15px;
 }
 
 .controls {
@@ -133,26 +147,46 @@ window {
   padding-bottom: 20px;
 }
 
+/////////////////////////////////
+// BAR
+//
+
 .bar {
   border: 0px;
-  border-radius: 8px;
-  background-color: $color-bg;
+  border-radius: $border-radius;
+  background-color: $window-bg;
   color: $color-fg;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 0px;
+  margin-left: $spacing;
+  margin-right: $spacing;
+}
+
+//////////////////////
+// Workspaces
+
+.workspaces {
+  background-color: $window-bg;
+  border-radius: $spacing-half;
 }
 
 .tag {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: $color-dim-white;
+  padding: 0;
+}
+.tag0 .tag-icon {
+  border-radius: $spacing-half 0 0 $spacing-half;
+}
+.tag7 .tag-icon {
+  // border-radius: 0 $spacing-half $spacing-half 0;
 }
 
 .tag .tag-icon {
-  padding-right: 6px;
+  // padding-right: 6px;
 }
 
 .tag .mine {
-  color: $color-bg;
+  color: $window-bg;
   background-color: $color-normal-green;
 }
 
@@ -160,6 +194,78 @@ window {
   color: $color-dim-cyan;
 }
 
-.tag .notified {
+.tag .notified {padding-right: $spacing;
   color: $color-normal-yellow;
+}
+
+////////////////////
+// Sidestuff
+
+.sidestuff {
+  color: $color-dim-white;
+}
+
+// CPU info
+.cpu {
+  padding: $bar-vertical-padding $bar-horizontal-padding;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+}
+.cpu .label {
+  // background-color: $color-normal-red;
+  font-size: 1.5rem;
+  padding-right: 5px;
+}
+
+// Battery info
+.battery {
+  padding: $bar-vertical-padding $bar-horizontal-padding;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+}
+
+// Controls
+.bar .metric {
+  // padding: $bar-vertical-padding $bar-horizontal-padding;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+}
+
+// Networking
+.bar .network {
+  padding: 0;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+
+  .icon {
+    font-size: 2rem;
+    padding: 0 $spacing 0 0;
+    margin: 0;
+  }
+}
+
+// Date / time
+.time {
+  padding: $bar-vertical-padding $bar-horizontal-padding;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+}
+
+// Power
+.bar .bigpowermenu {
+  padding-right: $spacing-double;
+  background-color: $window-bg;
+  border-radius: $border-radius;
+  font-size: 1.5rem;
+  color: $color-dim-white;
+  // background-color: $window-bg;
+}
+.bar .bigpowermenu .button {
+  padding: $bar-vertical-padding $spacing-half;
+}
+
+.powerbutton {
+  font-size: 1.5rem;
+  padding-left: $spacing;
+  padding-right: $spacing;
 }

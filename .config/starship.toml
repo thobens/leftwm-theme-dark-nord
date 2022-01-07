@@ -1,13 +1,13 @@
 format = """
-[┌─ $username$hostname$directory $fill](bold dimmed white)
-[│](bold dimmed white) $kubernetes$git_branch$git_commit$git_status$git_state$rust$package
-[└─](bold dimmed white)$character"""
+[╭─ $username$hostname$directory$fill](dimmed white)
+[│](dimmed white) $kubernetes$git_branch$git_commit$git_status$git_state$rust$package
+[╰─](dimmed white)$character"""
 
 [username]
-style_user = "bold cyan"
+style_user = "cyan"
 
 [hostname]
-style_user = "bold cyan"
+style = "cyan"
 
 [git_branch]
 style = "bold cyan"
@@ -18,21 +18,21 @@ symbol = "─"
 style = "dimmed white"
 
 [git_state]
-style = "italic yellow"
+style = "bold yellow"
 merge = "[ MERGING]($style)"
 rebase = "[ REBASE]($style)"
 cherry_pick = "[ PICKING]($style)"
 
 [git_status]
-style = "blue"
-conflicted = "[](red)"
-up_to_date = "[](green)"
+style = "bold white"
+conflicted = "[ ](red)"
+up_to_date = "[ ](green)"
 
 [git_commit]
-style = "italic green"
+style = "italic cyan"
 
 [rust]
-style = "bold green"
+style = "bold cyan"
 
 [package]
 style = "bold green"
@@ -47,7 +47,7 @@ disabled = true
 disabled = true
 
 [kubernetes]
-format = 'on [ﴱ $context](italic blue) '
+format = 'on [ﴱ ](blue)[$context ](italic bright-white)'
 disabled = false
 
 [kubernetes.context_aliases]
