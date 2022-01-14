@@ -4,8 +4,8 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 #set background
 feh --bg-scale "$SCRIPTPATH"/down.jpg
 
-eww close-all -c $SCRIPTPATH/.config/eww/dark-nord 
-eww kill -c $SCRIPTPATH/.config/eww/dark-nord
+eww -c $EWW_CONFIG close-all 
+eww -c $EWW_CONFIG kill
 
 pkill eww
 

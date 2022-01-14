@@ -108,13 +108,13 @@
       (literal :halign "center" :valign "center" :class "app-container" :content search_listen))))
 
 ;;;; Rofi style powermenu
-(defwidget bigpowermenu []
-  (box :orientation "h" :space-evenly false :class "bigpowermenu" :halign "center" :valign "center" :spacing 20
-    (button :class "button reboot" :onrightclick "systemctl reboot" "ﰇ")
-    (button :class "button lock" :onrightclick "bsplock" "")
-    (button :class "button suspend" :onrightclick "mpc -q pause & amixer set Master mute & systemctl suspend" "")
-    (button :class "button logout" :onrightclick "loginctl kill-session $XDG_SESSION_ID" "")
-    (button :class "button shutdown" :onrightclick "systemctl poweroff" "襤")))
+(defwidget bigpowermenu [?class]
+  (box :orientation "h" :space-evenly false :class "bigpowermenu ${class}" :halign "center" :valign "center" :spacing 20
+    (button :tooltip "Reboot" :class "button reboot" :onrightclick "systemctl reboot" "ﯩ")
+    (button :tooltip "Lock Screen" :class "button lock" :onrightclick "bsplock" "")
+    (button :tooltip "Suspend" :class "button suspend" :onrightclick "mpc -q pause & amixer set Master mute & systemctl suspend" "")
+    (button :tooltip "Logout" :class "button logout" :onrightclick "loginctl kill-session $XDG_SESSION_ID" "")
+    (button :tooltip "Shutdown" :class "button shutdown" :onrightclick "systemctl poweroff" "襤")))
 
 ;;;; Music Player
 (defwidget musicplayer []

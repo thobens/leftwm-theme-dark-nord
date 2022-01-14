@@ -6,27 +6,68 @@ configuration {
     show-icons:          true;
     terminal:            "alacritty";
     threads:             0;
-    matching:            "fuzzy";
+    matching:            "glob";
+    sort:                true;
     disable-history:     false;
 }
 
 * {
-    font: "mononoki Nerd Font Semibold 12";
-    foreground:                 #f8f8f2;
-    foreground-alt:             #a5abb6;
-    background-color:           #2e3440b3;
-    selected-foreground:        #2e3440;
-    selected-background:        #a3be8c;
+    font: "mononoki Nerd Font 11";
+    color-normal-black: #3b4252;
+    color-normal-red: #bf616a;
+    color-normal-green: #a3be8c;
+    color-normal-yellow: #ebcb8b;
+    color-normal-blue: #81a1c1;
+    color-normal-magenta: #b48ead;
+    color-normal-cyan: #88c0d0;
+    color-normal-white: #e5e9f0;
+
+    color-bright-black: #4c566a;
+    color-bright-red: #bf616a;
+    color-bright-green: #a3be8c;
+    color-bright-yellow: #ebcb8b;
+    color-bright-blue: #81a1c1;
+    color-bright-magenta: #b48ead;
+    color-bright-cyan: #8fbcbb;
+    color-bright-white: #eceff4;
+        
+    color-dim-black: #373e4d;
+    color-dim-red: #94545d;
+    color-dim-green: #809575;
+    color-dim-yellow: #b29e75;
+    color-dim-blue: #68809a;
+    color-dim-magenta: #8c738c;
+    color-dim-cyan: #6d96a5;
+    color-dim-white: #aeb3bb;
+
+    color-normal-fg: @color-normal-white;
+    color-bright-fg: @color-bright-white;
+    color-dim-fg:    @color-dim-white;
+    // color-normal-bg: #272727;
+    // color-bright-bg: #272727;
+    // color-dim-bg:    #1b1b1b;
+    color-normal-bg: @color-normal-black;
+    color-bright-bg: @color-bright-black;
+    color-dim-bg:    @color-dim-black;
+
+    foreground:                 @color-normal-fg;
+    foreground-alt:             @color-bright-fg;
+    foreground-inactive:        #aeb3bbaa;
+    background-color:           @color-dim-bg;
+    background-alt:             @color-bright-bg;
+    selected-foreground:        @color-normal-white;
+    selected-background:        @color-bright-bg;
     separatorcolor:             #7c7c7c;
-    bordercolor:                #809575;
-    highlightcolor:             #809575;
+    bordercolor:                @background;
+    highlightcolor:             @color-bright-blue;
+    highlightcolor-alt:         @color-bright-blue;
     transparent:                #00000000;
 }
 
 #window {
     background-color: @background;
     border:           0;
-    border-radius:    8;
+    border-radius:    4;
     border-color:     @background;
     padding:          0px 0px 0px;
     width:            35%;
@@ -45,7 +86,7 @@ configuration {
 }
 #listview {
     background-color: @transparent;
-    lines:        8;
+    lines:        6;
     border:       0px 0px 0px;
     border-color: @bordercolor;
     spacing:      0px;
@@ -56,19 +97,58 @@ configuration {
 #element {
     background-color: @transparent;
     border:        0; 
-    border-radius: 8;
-    padding:       20px;
+    border-radius: 4;
+    padding:       8px;
     children: [element-icon, element-text];
 }
 #element-text { 
     highlight:  @highlightcolor;
-    text-color: @foreground;
+    // text-color: @foreground;
     background-color: @transparent;
     padding: 5px;
 }
 #element-icon {
-    size: 1.5em;
+    size: 1em;
     background-color: @transparent;
+}
+#element-text.normal.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+#element-text.normal.urgent {
+    background-color: @background;
+    text-color:       @foreground;
+}
+#element-text.normal.active {
+    background-color: @background;
+    text-color:       @foreground;
+}
+#element-text.selected.normal {
+    background-color: @selected-background;
+    text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
+}
+#element-text.selected.urgent {
+    background-color: @selected-background;
+    text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
+}
+#element-text.selected.active {
+    background-color: @selected-background;
+    text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
+}
+#element-text.alternate.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+#element-text.alternate.urgent {
+    background-color: @background;
+    text-color:       @foreground;
+}
+#element-text.alternate.active {
+    background-color: @background;
+    text-color:       @foreground;
 }
 #element.normal.normal {
     background-color: @background;
@@ -85,14 +165,17 @@ configuration {
 #element.selected.normal {
     background-color: @selected-background;
     text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
 }
 #element.selected.urgent {
     background-color: @selected-background;
     text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
 }
 #element.selected.active {
     background-color: @selected-background;
     text-color:       @selected-foreground;
+    highlight:        @highlightcolor;
 }
 #element.alternate.normal {
     background-color: @background;
@@ -121,10 +204,10 @@ configuration {
     text-color:       @foreground;
 }
 #inputbar {
-    background-color: @transparent;
+    background-color: @background-alt;
     spacing:    0;
     text-color: @foreground;
-    padding:    25px ;
+    padding:    8px ;
     children:   [ entry ];
 }
 #case-indicator {
@@ -135,6 +218,8 @@ configuration {
     background-color: @transparent;
     spacing:    0;
     text-color: @foreground;
+    placeholder: "Search";
+    placeholder-color: @foreground-inactive;
 }
 #prompt {
     background-color: @transparent;
@@ -146,7 +231,7 @@ configuration {
     expand:     false;
     str:        ":";
     margin:     0px 0.3em 0em 0em;
-    text-color: @separatorcolor;
+    text-color: @color-dim-bg;
 }
 
 /* vim:ft=css

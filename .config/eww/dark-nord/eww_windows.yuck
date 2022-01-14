@@ -75,7 +75,7 @@
 (defwindow calendar
   :wm-ignore: true
   :monitor 0
-  :windowtype "dock"
+  :windowtype "toolbar"
   :geometry (geometry :x "-8px"
     :y "-40px"
     :width "240px"

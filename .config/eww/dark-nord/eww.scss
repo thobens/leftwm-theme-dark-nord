@@ -1,12 +1,16 @@
 @import "variables.scss";
 
-$window-bg: $color-bg;
+$background: $color-bg;
+$background-alt: #272727;
 $spacing: 8px;
 $spacing-double: 16px;
 $spacing-half: 4px;
 $border-radius: $spacing-half;
 $bar-vertical-padding: $spacing-half;
 $bar-horizontal-padding: $spacing;
+$bar-widget-border-radius: 0;
+// text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit;
+$bar-font-shadow: -2px 3px 5px black; 
 
 * {
   all: unset;
@@ -14,12 +18,12 @@ $bar-horizontal-padding: $spacing;
 }
 // WINDOW RELATED CSS
 .bg {
-  background-color: $window-bg;
-  border: 1px solid $window-bg;
+  background-color: $background;
+  border: 1px solid $background;
 }
 
 .bg-box {
-  background-color: $window-bg;
+  background-color: $background;
 }
 
 .notes {
@@ -65,7 +69,7 @@ window {
   padding-right: 10px;
   font-size: 1.5rem;
   color: $color-dim-white;
-  // background-color: $window-bg;
+  // background-color: $background;
 }
 
 .powerbutton {
@@ -113,7 +117,7 @@ window {
   font-size: 1.5rem;
   margin: -2px;
   padding: 30px 90px 30px 90px;
-  background-color: $window-bg; // #1E222A;
+  background-color: $background; // #1E222A;
   border: 6px solid $color-bright-blue;
 }
 .search-bar {
@@ -152,26 +156,27 @@ window {
 //
 
 .bar {
-  border: 0px;
+  border: 0px transparent;
   border-radius: $border-radius;
-  background-color: $window-bg;
+  background-color: $background;
   color: $color-fg;
   padding: 0px;
   margin-left: $spacing;
   margin-right: $spacing;
+  text-shadow: $bar-font-shadow;
 }
 
 //////////////////////
 // Workspaces
 
 .workspaces {
-  background-color: $window-bg;
+  background-color: $background;
   border-radius: $spacing-half;
 }
 
 .tag {
-  font-size: 2rem;
-  color: $color-dim-white;
+  font-size: 2.1rem;
+  color: $color-normal-white;
   padding: 0;
 }
 .tag0 .tag-icon {
@@ -186,7 +191,7 @@ window {
 }
 
 .tag .mine {
-  color: $window-bg;
+  color: $background;
   background-color: $color-normal-green;
 }
 
@@ -202,40 +207,86 @@ window {
 // Sidestuff
 
 .sidestuff {
-  color: $color-dim-white;
+  color: $color-normal-white;
+}
+.separator, .terminator {
+
+  // font-family: "mononoki Nerd Font";
+  background-color: $background;
+  color: $background-alt;
+  font-size: 28px;
+  padding: 0;
+  margin: 0;
+  
+  &.alt {
+
+    background-color: $background-alt;
+    color: $background;
+
+  }
+
+}
+.terminator {
+
+  color: $background;
+  text-shadow: $bar-font-shadow;
+  
+  &.alt {
+    color: $background-alt;
+  }
+
 }
 
 // CPU info
 .cpu {
   padding: $bar-vertical-padding $bar-horizontal-padding;
-  background-color: $window-bg;
-  border-radius: $border-radius;
-}
-.cpu .label {
-  // background-color: $color-normal-red;
-  font-size: 1.5rem;
-  padding-right: 5px;
+  background-color: $background;
+  border-radius: $bar-widget-border-radius;
+  transition: width 0.2s;
+  
+  &.alt {
+    background-color: $background-alt;
+  }
+
+  .label {
+    // background-color: $color-normal-red;
+    font-size: 1.5rem;
+    padding-right: 5px;
+  }
 }
 
 // Battery info
 .battery {
   padding: $bar-vertical-padding $bar-horizontal-padding;
-  background-color: $window-bg;
-  border-radius: $border-radius;
+  background-color: $background;
+  border-radius: $bar-widget-border-radius;
+  
+  &.alt {
+    background-color: $background-alt;
+  }
+
 }
 
 // Controls
 .bar .metric {
   // padding: $bar-vertical-padding $bar-horizontal-padding;
-  background-color: $window-bg;
-  border-radius: $border-radius;
+  background-color: $background;
+  border-radius: $bar-widget-border-radius;
+  
+  &.alt {
+    background-color: $background-alt;
+  }
 }
 
 // Networking
 .bar .network {
-  padding: 0;
-  background-color: $window-bg;
-  border-radius: $border-radius;
+  padding: 0 $bar-horizontal-padding;
+  background-color: $background;
+  border-radius: $bar-widget-border-radius;
+  
+  &.alt {
+    background-color: $background-alt;
+  }
 
   .icon {
     font-size: 2rem;
@@ -247,21 +298,31 @@ window {
 // Date / time
 .time {
   padding: $bar-vertical-padding $bar-horizontal-padding;
-  background-color: $window-bg;
-  border-radius: $border-radius;
+  background-color: $background;
+  border-radius: $bar-widget-border-radius;
+  
+  &.alt {
+    background-color: $background-alt;
+  }
 }
 
 // Power
-.bar .bigpowermenu {
-  padding-right: $spacing-double;
-  background-color: $window-bg;
-  border-radius: $border-radius;
-  font-size: 1.5rem;
-  color: $color-dim-white;
-  // background-color: $window-bg;
-}
-.bar .bigpowermenu .button {
-  padding: $bar-vertical-padding $spacing-half;
+.bar {
+  .bigpowermenu {
+    padding: 0 $bar-horizontal-padding;
+    background-color: $background;
+    border-radius: 0 $border-radius $border-radius 0;
+    font-size: 24px;
+    color: $color-normal-white;
+    // background-color: $background;
+    
+    &.alt {
+      background-color: $background-alt;
+    }
+    .button {
+      padding: 2px $spacing-half;
+    }
+  }
 }
 
 .powerbutton {

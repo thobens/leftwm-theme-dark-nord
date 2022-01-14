@@ -5,12 +5,16 @@
     (sidestuff)))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
-    (cpu :value {cpu_poll})
-    (battery :value {battery_poll})
-    (metric :label ""
-      :value volume
-    :onchange "amixer -D pulse sset Master {}%")
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 0
+    (label :class "terminator" :text "${defaultSeparator}")
+    (group :separator {cpu_poll.separator} 
+      (cpu :value {cpu_poll}))
+    (group :class "alt" :separator {battery_poll.separator} 
+      (battery :class "alt" :value {battery_poll}))
+    (group :separator {defaultSeparator}
+      (metric :label ""
+        :value volume
+      :onchange "amixer -D pulse set Master {}%"))
     ; (metric :label ""
     ;   :value {EWW_RAM.used_mem_perc}
     ; :onchange "")
@@ -18,15 +22,22 @@
     ;   :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
     ; :onchange "")
     ; (time :onclick "eww open calendar -c ~/.config/leftwm/themes/current/.config/eww/dark-nord")
-    (net)
-    (time :onclick "~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/calendar.sh")
-    (bigpowermenu)))
+    (group :class "alt" :separator {defaultSeparator} (net :class "alt"))
+    (group :separator {defaultSeparator} (time :onclick "~/.config/leftwm/themes/current/.config/eww/dark-nord/scripts/calendar.sh"))
+    (bigpowermenu :class "alt")))
 
-(defwidget net []
+(defwidget group [?class separator] 
+  (box :orientation "h" :space-evenly false :class "group ${class}" :halign "center" :valign "center"
+  (children)
+  (label :class "separator ${class}" :text "${separator}")))
 
-  (box :orientation "h" :space-evenly false :class "network" :halign "center" :valign "center" :hexpand true :vexpand true
+(defwidget net [?class]
+
+  (box :orientation "h" :space-evenly false :class "network ${class}" :halign "center" :valign "center" :hexpand true :vexpand true
     (label :class "icon" :text "" :halign "center")
-    (label :class "label" :text "${ssid}" :halign "center" :limit-width 50 :show-truncated true :hexpand true :vexpand true)))
+    (button :onrightclick "alacritty --class 'alacritty-float,alacritty-float' -e nmtui &"
+      (label :class "label" :text "${ssid}" :halign "center" :limit-width 50 :show-truncated true :hexpand true :vexpand true)))
+    )
 
 (defwidget powerbutton []
     (button 
@@ -80,46 +91,43 @@
       " ${tag_state.name} ")
     ))
 
-(defwidget battery [value]
-  (box :class "battery ${value.theme_variation}"
+(defwidget battery [?class value]
+  (box :class "battery ${class} ${value.theme_variation}"
     :orientation "h"
     :space-evenly false
     :halign "center"
-    :style "background: ${value.background};color: ${value.color};"
+    :style {value.state.background != "null" ? "background: ${value.state.background};color: ${value.state.color};" : "color: ${value.state.color};"}
   {value != "" && value.full_text != "" ? value.full_text : ""}))
 
-(defwidget cpu [value]
-  (box :class "cpu"
+(defwidget cpu [?class value]
+  (box :class "cpu ${class}"
     :orientation "h"
     :space-evenly false
     :halign "center"
+  ; (label :class "separator" {value != "" ? "${value.separator}" : {defaultSeparator}})
   (box :class "label" {value != "" && value.state.load_label != "null" ? value.state.load_label : ""})
   (box :class "value" {value != "" && value.load != "" ? value.load : "NaN"})
-  (box :class "value" "%")
-  (box :class "separator" " | ")
-  (box :class "label" {value != "" && value.state.temp_label != "null" ? value.state.temp_label : ""})
-  (box :class "value" {value != "" && value.temp != "" ? value.temp : "NaN"})
   (box :class "value" "%")))
 
 
-(defwidget music []
-  (box :class "music"
+(defwidget music [?class]
+  (box :class "music ${class}"
     :orientation "h"
     :space-evenly false
     :halign "center"
-  {music != "" ? "🎵${music}" : ""}))
+  {music != "" ? "🎵 ${music}" : ""}))
 
-(defwidget time [onclick]
-  (box :class "time"
+(defwidget time [?class onclick]
+  (box :class "time ${class}"
     :orientation "h"
     :space-evenly false
     :halign "end"
     (button :onclick onclick timer)))
 
 
-(defwidget metric [label value onchange]
+(defwidget metric [?class label value onchange]
   (box :orientation "h"
-    :class "metric"
+    :class "metric ${class}"
     :space-evenly false
     (box :class "label" label)
     (scale :min 0

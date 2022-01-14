@@ -3,6 +3,7 @@ export SCRIPTPATH
 SCRIPTPATH="$( cd "$(dirname "$0")" || exit; pwd -P )"
 
 export STARSHIP_CONFIG="$SCRIPTPATH/.config/starship.toml"
+export EWW_CONFIG="$SCRIPTPATH/.config/eww/dark-nord"
 
 # Down the last running theme
 if [ -f "/tmp/leftwm-theme-down" ]; then
@@ -18,11 +19,11 @@ picom --experimental-backends --config "$SCRIPTPATH"/picom.conf > /dev/null &
 leftwm command "LoadTheme $SCRIPTPATH/theme.toml"
 
 # # Set background
-feh --bg-fill "$SCRIPTPATH"/wallpapers/background2.jpg
+feh --bg-fill "$SCRIPTPATH"/wallpapers/background1.jpg
 
 dunst &
 
-eww daemon -c $SCRIPTPATH/.config/eww/dark-nord
+eww -c $EWW_CONFIG daemon
 sleep 1
 index=0
 # leftwm-state -q -n -t "$SCRIPTPATH"/sizes.liquid | sed -r '/^\s*$/d' | while read -r width
@@ -32,4 +33,4 @@ index=0
 #   monitor=$monitor width=$(( width - 16 )) polybar -c "$SCRIPTPATH"/polybar.config $barname &
 #   index=$((index+1))
 # done
-eww open bar -c $SCRIPTPATH/.config/eww/dark-nord 
+eww -c $EWW_CONFIG open bar 

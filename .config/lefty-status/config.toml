@@ -5,8 +5,50 @@
 # ██║  ██║╚██████╔╝███████║   ██║      ██║   ██████╔╝██║  ██║██║  ██║
 # ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 
+[theme]
+
+[theme.vars]
+# window_bg = "{{ colors.bg }}"
+
+[theme.colors]
+bg = "#2e3440" # "#2e3440"
+fg = "#d8dee9"
+fg_alt = "#a5abb6"
+bg_alt = "#1b1b1b"
+
+[theme.colors.normal]
+black = "#3b4252"
+red = "#bf616a"
+green = "#a3be8c"
+yellow = "#ebcb8b"
+blue = "#81a1c1"
+magenta = "#b48ead"
+cyan = "#88c0d0"
+white = "#e5e9f0"
+
+[theme.colors.bright]
+black = "#4c566a"
+red = "#bf616a"
+green = "#a3be8c"
+yellow = "#ebcb8b"
+blue = "#81a1c1"
+magenta = "#b48ead"
+cyan = "#8fbcbb"
+white = "#eceff4"
+
+[theme.colors.dim]
+black = "#373e4d"
+red = "#94545d"
+green = "#809575"
+yellow = "#b29e75"
+blue = "#68809a"
+magenta = "#8c738c"
+cyan = "#6d96a5"
+white = "#aeb3bb"
+
 [battery]
-format = "{label} {value}%"                                            
+format = "{label} {value}%"
+separator = ''                                            
 # Battery life
 [battery.critical]
 label = ''
@@ -16,31 +58,32 @@ threshold = 5.0
 
 [battery.low]
 label = ''
-charging_label = ''
+charging_label = ''
 color = '#ebcb8b'
 threshold = 25.0
 
 [battery.normal]
 label = ''
-charging_label = ''
+charging_label = ''
 color = '#e5e9f0'
 threshold = 75.0
 
 [battery.high]
 label = ''
-charging_label = ''
+charging_label = ''
 color = '#a3be8c'
 threshold = 98.0
 
 [battery.full]
 label = ''
-charging_label = ''
+charging_label = ''
 color = '#a3be8c'
 threshold = 100.0
 
 # CPU 
 [cpu]
 format = "{load_label} {load}% | {temp_label} {temp}°C"
+separator = ''
 
 [cpu.low]
 load_label = ''

@@ -21,6 +21,7 @@
 ;;;; App list LISTEN VAR
 (defpoll search_listen :interval "1s" "cat ~/.config/eww/scripts/search_items.txt")
 
+(defvar defaultSeparator "")
 (defvar revealSpotify false)
 (defvar revealDocker false)
 (defvar revealGithub false)

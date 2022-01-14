@@ -2,6 +2,8 @@
 pub mod event;
 pub mod ui;
 
+use std::collections::HashMap;
+
 use rand::{
     distributions::{Distribution, Uniform},
     rngs::ThreadRng,
