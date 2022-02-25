@@ -36,3 +36,4 @@
 (defvar revealTag5 false)
 (defvar revealTag6 false)
 (defvar revealTag7 false)
+(defvar revealTag8 false)

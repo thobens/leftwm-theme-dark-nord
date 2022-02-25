@@ -28,37 +28,32 @@ launcher    : Rofi
 - [starship](https://github.com/starship/starship)
 - [alacritty](https://github.com/alacritty/alacritty)
 - [dunst](https://dunst-project.org)
+- [feh](https://github.com/derf/feh)
 
 ## Installation
 
 1. Install all required dependencies
 
-    yay -S leftwm playerctl picom-git nerd-fonts-complete rofi alacritty starship
+    yay -S leftwm playerctl picom-git nerd-fonts-complete rofi alacritty starship eww dunst feh
 
 2. Clone the repository
 
 ```BASH
-git clone https://github.com/AethanFoot/leftwm-theme-dracula-rounded.git
+git clone https://github.com/thobens/leftwm-theme-dark-nord.git
 ```
 
-3. Make a copy of this project in your themes folder
+3. Remove the symlink to your current theme if set
 
 ```BASH
-cp -r ./leftwm-theme-dracula-rounded ~/.config/leftwm/themes
+rm -f ~/.config/leftwm/themes/current
 ```
-
-4. Remove the symlink to your current theme if set
+4. Set this as your current theme
 
 ```BASH
-rm ~/.config/leftwm/themes/current
-```
-5. Set this as your current theme
-
-```BASH
-ln -s ~/.config/leftwm/themes/leftwm-theme-dracula-rounded ~/.config/leftwm/themes/current
+ln -s /path/to/leftwm-theme-dark-nord ~/.config/leftwm/themes/current
 ```
 
-6. Restart your window manager
+5. Restart your window manager
 
 ```Default shortcut
 $MOD + Shift + r

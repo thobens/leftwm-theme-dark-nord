@@ -59,7 +59,8 @@
     (tag :ws 0 :tagnum 4 :value {ws_state_main} :reveal_var revealTag4)
     (tag :ws 0 :tagnum 5 :value {ws_state_main} :reveal_var revealTag5)
     (tag :ws 0 :tagnum 6 :value {ws_state_main} :reveal_var revealTag6)
-    (tag :ws 0 :tagnum 7 :value {ws_state_main} :reveal_var revealTag7)))
+    (tag :ws 0 :tagnum 7 :value {ws_state_main} :reveal_var revealTag7)
+    (tag :ws 0 :tagnum 8 :value {ws_state_main} :reveal_var revealTag8)))
 
 (defwidget tag [ ws tagnum value reveal_var]
   (tag_it :ws ws :tagnum tagnum :onclick "scripts/change_to_tag ${ws} ${tagnum}" :tag_state {value.workspaces[ws].tags[tagnum]
@@ -88,7 +89,7 @@
       (button
         :class "tag-icon ${tag_state.mine ? 'mine' : tag_state.busy ? 'busy' : ''}"
         :onclick onclick
-      " ${tag_state.name} ")
+      "${tag_state.name}")
     ))
 
 (defwidget battery [?class value]
