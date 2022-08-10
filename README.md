@@ -80,6 +80,24 @@ https://store.kde.org/p/1473069/
 
 I personally like the [Nord Native theme](https://marketplace.visualstudio.com/items?itemName=divanvisagie.nord-native-theme)
 
+### Vim Theme and Setup for rust
+
+See https://www.nordtheme.com/docs/ports/vim/installation
+
+```bash
+yay -S vim-plug
+cp ~/.vimrc ~/.vimrc.bkp
+cp ./.vimrc ~/.vimrc
+vi ~/.vimrc
+```
+
+Then in vim run the commands
+
+```vim
+:PlugInstall
+:CocInstall coc-rust-analyzer
+```
+
 ## Credits
 
 The polybar theme is a modified panel created by adi1090x(https://github.com/adi1090x/polybar-themes)
