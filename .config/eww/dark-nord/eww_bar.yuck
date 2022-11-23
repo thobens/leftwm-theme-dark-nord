@@ -1,8 +1,9 @@
 (defwidget bar []
+  (box :class "barcontainer"
   (centerbox :class "bar" :orientation "h"
     (workspaces)
-    (music)
-    (sidestuff)))
+    (box)
+    (sidestuff))))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 0

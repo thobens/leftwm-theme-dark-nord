@@ -58,17 +58,17 @@ configuration {
     selected-foreground:        @color-normal-white;
     selected-background:        @color-bright-bg;
     separatorcolor:             #7c7c7c;
-    bordercolor:                @background;
+    bordercolor:                @background-color;
     highlightcolor:             @color-bright-blue;
     highlightcolor-alt:         @color-bright-blue;
     transparent:                #00000000;
 }
 
 #window {
-    background-color: @background;
+    background-color: @background-color;
     border:           0;
     border-radius:    4;
-    border-color:     @background;
+    border-color:     @background-color;
     padding:          0px 0px 0px;
     width:            35%;
 }
@@ -112,15 +112,15 @@ configuration {
     background-color: @transparent;
 }
 #element-text.normal.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element-text.normal.urgent {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element-text.normal.active {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element-text.selected.normal {
@@ -139,27 +139,27 @@ configuration {
     highlight:        @highlightcolor;
 }
 #element-text.alternate.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element-text.alternate.urgent {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element-text.alternate.active {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.urgent {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.active {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.selected.normal {
@@ -178,15 +178,15 @@ configuration {
     highlight:        @highlightcolor;
 }
 #element.alternate.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.active {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #scrollbar {

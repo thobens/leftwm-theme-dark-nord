@@ -116,7 +116,9 @@ impl Completion {
         }
     }
 }
-fn main() -> Result<()> {
+
+#[tokio::main]
+async fn main() -> Result<()> {
     let main = StatusBarApp::parse();
     let pb = PathBuf::from(main.cfg_path);
     let cfg = if !Config::exists(pb.clone()) {

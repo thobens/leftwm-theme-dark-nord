@@ -30,6 +30,10 @@ strfmt = "0.1"
 tui = { version = "0.16", optional = true }
 termion = { version = "1.5", optional = true }
 rand = "0.8"
+tokio = "1.0"
+dbus = "0.9"
+dbus-tokio = { version = "0.7", features = ["dbus-crossroads"]}
+# dbus-crossroads = "0.5"
 
 [features]
 default = []

@@ -154,16 +154,20 @@ window {
 /////////////////////////////////
 // BAR
 //
+.barcontainer {
+  margin: 0 $spacing;
+  background-color: $background;
+  border-radius: $border-radius;
+}
 
 .bar {
   border: 0px transparent;
   border-radius: $border-radius;
-  background-color: $background;
+  background-color: transparent;
   color: $color-fg;
   padding: 0px;
-  margin-left: $spacing;
-  margin-right: $spacing;
   text-shadow: $bar-font-shadow;
+
 }
 
 //////////////////////
@@ -236,6 +240,7 @@ window {
   }
 
 }
+
 
 // CPU info
 .cpu {
