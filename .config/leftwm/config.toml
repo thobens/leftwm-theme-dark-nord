@@ -1,6 +1,13 @@
 modkey = "Mod4"
 mousekey = "Mod4"
-workspaces = []
+workspaces = [
+    { y = 0, x = 0, height = 1200, width = 1920, id = 0 },
+    { y = 1920, x = 0, height = 1200, width = 1920, id = 1 },
+    { y = 3840, x = 0, height = 1200, width = 1920, id = 2 },
+]
+window_rules = [
+    { window_class = "brave-browser", spawn_on_tag = 7 },
+]
 tags = ["", "", "", "﬏", "ﴱ", "", "阮", "", ""]
 layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHorizontal", "EvenHorizontal", "EvenVertical", "Fibonacci", "CenterMain", "CenterMainBalanced", "Monocle", "RightWiderLeftStack", "LeftWiderRightStack"]
 disable_current_tag_swap = true

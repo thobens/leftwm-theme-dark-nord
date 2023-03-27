@@ -16,6 +16,8 @@ use leftwm_theme_dark_nord::{
 };
 use serde::Serialize;
 
+use tokio;
+
 #[derive(Debug)]
 enum OutputFormat {
     Plain,

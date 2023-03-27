@@ -19,7 +19,7 @@ picom --experimental-backends --config "$SCRIPTPATH"/picom.conf > /dev/null &
 leftwm command "LoadTheme $SCRIPTPATH/theme.toml"
 
 # # Set background
-feh --bg-fill "$SCRIPTPATH"/wallpapers/background1.jpg
+feh --bg-scale "$SCRIPTPATH"/wallpapers/background1.jpg 
 
 dunst &
 
@@ -33,4 +33,6 @@ index=0
 #   monitor=$monitor width=$(( width - 16 )) polybar -c "$SCRIPTPATH"/polybar.config $barname &
 #   index=$((index+1))
 # done
-eww -c $EWW_CONFIG open bar 
+eww -c $EWW_CONFIG open bar
+eww -c $EWW_CONFIG open bar_second
+eww -c $EWW_CONFIG open bar_third

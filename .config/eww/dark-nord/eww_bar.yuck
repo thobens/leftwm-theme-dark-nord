@@ -1,9 +1,17 @@
 (defwidget bar []
   (box :class "barcontainer"
-  (centerbox :class "bar" :orientation "h"
-    (workspaces)
-    (box)
-    (sidestuff))))
+    (centerbox :class "bar" :orientation "h"
+      (workspaces :ws 0 :state ws_state_main)
+      (box)
+      (sidestuff))))
+
+(defwidget bar_secondary [ws state]
+  (box :class "barcontainer"
+    (centerbox :class "bar" :orientation "h"
+      (workspaces :ws ws :state state)
+      (box)
+      (box))))
+
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 0
@@ -47,21 +55,21 @@
       :onclick "eww -c ~/.config/leftwm/themes/current/.config/eww/dark-nord open bigpowermenu" 
       "拉"))
 
-(defwidget workspaces []
+(defwidget workspaces [ws state]
   (box :class "workspaces"
     :orientation "h"
     :space-evenly true
     :halign "start"
     :spacing 0
-    (tag :ws 0 :tagnum 0 :value {ws_state_main} :reveal_var revealTag0)
-    (tag :ws 0 :tagnum 1 :value {ws_state_main} :reveal_var revealTag1)
-    (tag :ws 0 :tagnum 2 :value {ws_state_main} :reveal_var revealTag2)
-    (tag :ws 0 :tagnum 3 :value {ws_state_main} :reveal_var revealTag3)
-    (tag :ws 0 :tagnum 4 :value {ws_state_main} :reveal_var revealTag4)
-    (tag :ws 0 :tagnum 5 :value {ws_state_main} :reveal_var revealTag5)
-    (tag :ws 0 :tagnum 6 :value {ws_state_main} :reveal_var revealTag6)
-    (tag :ws 0 :tagnum 7 :value {ws_state_main} :reveal_var revealTag7)
-    (tag :ws 0 :tagnum 8 :value {ws_state_main} :reveal_var revealTag8)))
+    (tag :ws ws :tagnum 0 :value {state} :reveal_var revealTag0)
+    (tag :ws ws :tagnum 1 :value {state} :reveal_var revealTag1)
+    (tag :ws ws :tagnum 2 :value {state} :reveal_var revealTag2)
+    (tag :ws ws :tagnum 3 :value {state} :reveal_var revealTag3)
+    (tag :ws ws :tagnum 4 :value {state} :reveal_var revealTag4)
+    (tag :ws ws :tagnum 5 :value {state} :reveal_var revealTag5)
+    (tag :ws ws :tagnum 6 :value {state} :reveal_var revealTag6)
+    (tag :ws ws :tagnum 7 :value {state} :reveal_var revealTag7)
+    (tag :ws ws :tagnum 8 :value {state} :reveal_var revealTag8)))
 
 (defwidget tag [ ws tagnum value reveal_var]
   (tag_it :ws ws :tagnum tagnum :onclick "scripts/change_to_tag ${ws} ${tagnum}" :tag_state {value.workspaces[ws].tags[tagnum]
@@ -145,6 +153,12 @@
 (deflisten ws_state_main :initial ""
 "leftwm-state -w 0")
 
+(deflisten ws_state_second :initial ""
+"leftwm-state -w 1")
+
+(deflisten ws_state_third :initial ""
+"leftwm-state -w 2")
+
 (defpoll volume :interval "1s"
 "scripts/getvol")
 
@@ -167,6 +181,28 @@
   :anchor "bottom center")
   :reserve (struts :side "bottom" :distance "32px")
   (bar))
+
+(defwindow bar_second
+  :monitor 1
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    ; :height "32px"
+  :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "32px")
+  (bar_secondary :ws 1 :state ws_state_second))
+
+(defwindow bar_third
+  :monitor 2
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    ; :height "32px"
+  :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "32px")
+  (bar_secondary :ws 2 :state ws_state_third))
 
 (defwidget hovered-sign [var]
   (box :space-evenly false

@@ -117,13 +117,13 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: "mononoki Nerd Font Mono"
+    family: "mononoki Nerd Font"
 
     # The `style` can be specified to pick a specific face.
     style: Regular
 
   # Bold font face
-  #bold:
+  bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
@@ -134,7 +134,7 @@ font:
     style: Bold
 
   # Italic font face
-  #italic:
+  italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
@@ -145,7 +145,7 @@ font:
     style: Italic
 
   # Bold italic font face
-  #bold_italic:
+  bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
@@ -171,12 +171,6 @@ font:
   glyph_offset:
     x: 0
     y: 0
-
-  # Thin stroke font rendering (macOS only)
-  #
-  # Thin strokes are suitable for retina displays, but for non-retina screens
-  # it is recommended to set `use_thin_strokes` to `false`.
-  use_thin_strokes: true
 
   # Use built-in font for box drawing characters.
   #
@@ -207,9 +201,9 @@ colors:
     matches:
       foreground: CellBackground
       background: "#88c0d0"
-    bar:
-      background: "#434c5e"
-      foreground: "#d8dee9"
+  footer_bar:
+    background: "#434c5e"
+    foreground: "#d8dee9"
   normal:
     black: "#3b4252"
     red: "#bf616a"

@@ -10,6 +10,10 @@ name = "lefty-status"
 path = "src/statusbar.rs"
 
 [[bin]]
+name = "lefty-server"
+path = "src/lefty_server.rs"
+
+[[bin]]
 name = "lefty-manager"
 path = "src/lefty_manager.rs"
 required-features = [ "manager" ]
@@ -30,7 +34,7 @@ strfmt = "0.1"
 tui = { version = "0.16", optional = true }
 termion = { version = "1.5", optional = true }
 rand = "0.8"
-tokio = "1.0"
+tokio = { version = "1.0", features = [ "full" ] }
 dbus = "0.9"
 dbus-tokio = { version = "0.7", features = ["dbus-crossroads"]}
 # dbus-crossroads = "0.5"
